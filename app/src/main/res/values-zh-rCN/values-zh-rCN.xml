@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <resources>
+        <string name="app_name">贪吃蛇</string>
+        <string name="up">上</string>
+        <string name="down">下</string>
+        <string name="left">左</string>
+    <string name="right">右</string>
+    <string name="rank">排行榜</string>
+    <string name="ok">确认</string>
+    <string name="tv_username">用户名</string>
+    <string name="tv_score">分数</string>
+    </resources>
+
