@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import androidx.annotation.Nullable;
@@ -26,6 +27,8 @@ import java.util.TimerTask;
 
 public class TcsView extends View {
 
+
+    private static final String TAG = TcsView.class.getSimpleName();
     private Paint paint;
     //小蛇的组成点
     private ArrayList<Point> points = new ArrayList<Point>();
@@ -46,7 +49,7 @@ public class TcsView extends View {
     private int offsetY = 0;
     //随机数
     private Random random = new Random();
-    private boolean isStart =false;
+    private boolean isStart = false;
     //屏幕宽高
     private int width;
     private int height;
@@ -114,7 +117,10 @@ public class TcsView extends View {
             points.add(0, new Point(headerX, headerY));
             spoints[headerX][headerY] = 1;
             if (tcsScoreListener != null) {
-                tcsScoreListener.onTCSScore(points.size());
+                Log.i(TAG, "headerNext: " + points.size());
+                tcsScoreListener.onTCSScore(points.size() - 2);
+            } else {
+                Log.i(TAG, "headerNext: " + tcsScoreListener);
             }
             if (headerX == foodX && headerY == foodY) {
                 foodX = -1;
@@ -264,7 +270,7 @@ public class TcsView extends View {
             case 2:
                 if (direction == 0 || direction == -1) {
                     direction = dire;
-               }
+                }
                 break;
         }
     }
@@ -280,7 +286,7 @@ public class TcsView extends View {
     }
 
     /**
-     *setting pause
+     * setting pause
      */
     public void pause() {
         isStop = true;
@@ -292,5 +298,5 @@ public class TcsView extends View {
         isStart = true;
         invalidate();
     }
-}
 
+}

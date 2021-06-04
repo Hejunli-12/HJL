@@ -3,11 +3,14 @@ package com.jl.tcs;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ExpandableListAdapter;
@@ -30,9 +33,11 @@ import java.util.List;
 public class MainActivity
         extends AppCompatActivity
         implements TcsScoreListener, View.OnClickListener {
+    private static final String TAG =void.class.getSimpleName();
     private TcsView tcsView;
     private ImageButton restartView;
     private ImageButton pauseButtonView;
+    private ImageButton settingButtonView;
     private Button upButtonView;
     private Button downButtonView;
     private Button leftButtonView;
@@ -52,6 +57,7 @@ public class MainActivity
         setContentView(R.layout.activity_main);
         scoreTextView = findViewById(R.id.tv_score);
         tcsView = findViewById(R.id.tcs_22);
+        settingButtonView = findViewById(R.id.btn_setting);
         startButtonView = findViewById(R.id.btn_start);
         restartView = findViewById(R.id.btn_restart);
         pauseButtonView = findViewById(R.id.btn_pause);
@@ -64,12 +70,12 @@ public class MainActivity
 
         initEvent();
     }
-
     /**
      * initial event
      */
     private void initEvent() {
         tcsView.setOnClickListener(this);
+        tcsView.setTcsScoreListener(this::onTCSScore);
         startButtonView.setOnClickListener(this);
         restartView.setOnClickListener(this);
         pauseButtonView.setOnClickListener(this);
@@ -100,7 +106,6 @@ public class MainActivity
             scoreTextView.setText(String.valueOf(score));
         }
     }
-
 
     @SuppressLint("NonConstantResourceId")
     @Override
@@ -168,12 +173,12 @@ public class MainActivity
                 //实例化RecyclerView
                 RecyclerView rankListView = dialogView.findViewById(R.id.rv_rank_list);
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
-                        RecyclerView.VERTICAL, true);
+                        RecyclerView.VERTICAL, false);
                 rankListView.setLayoutManager(layoutManager);
                 rankListView.setAdapter(rankAdapter);
                 //
                 List<RankBean> rankBeans = new ArrayList<>();
-                for (int i = 0; i < 10; i++) {
+                for (int i = 1; i < 11; i++) {
                     //Random random = new Random();
                     // int result = random.nextInt(10) * i;
                     RankBean rankBean = new RankBean();
