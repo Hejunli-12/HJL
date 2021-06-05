@@ -27,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jl.tcs.adapter.RankAdapter;
 import com.jl.tcs.model.RankBean;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +77,7 @@ public class MainActivity
     private void initEvent() {
         tcsView.setOnClickListener(this);
         tcsView.setTcsScoreListener(this::onTCSScore);
+        settingButtonView.setOnClickListener(this);
         startButtonView.setOnClickListener(this);
         restartView.setOnClickListener(this);
         pauseButtonView.setOnClickListener(this);
@@ -151,13 +153,38 @@ public class MainActivity
                 tcsView.changeDirection(-1);
                 break;
             case R.id.btn_left:
-                tcsView.setSpeed(10);
                 tcsView.changeDirection(1);
                 break;
             case R.id.btn_right:
-                tcsView.setSpeed(1000);
                 tcsView.changeDirection(2);
                 break;
+            case R.id.btn_setting:
+               View settingView = getLayoutInflater().inflate(R.layout.activity_setting, null);
+
+                new AlertDialog.Builder(this)
+                        .setView(settingView)
+                        .setTitle(R.string.select)
+                        .setItems(speed,new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                {
+                                    switch (v.getId()) {
+                                        case R.id.btn_easy:
+                                            tcsView.setSpeed(50);
+                                            break;
+                                        case R.id.btn_normal:
+                                            tcsView.setSpeed(80);
+                                            break;
+                                        case R.id.btn_difficult:
+                                            tcsView.setSpeed(100);
+                                            break;
+                                    }
+                                }
+                            }
+                        });
+
+                break;
+
             case R.id.btn_rank:
                 View dialogView = getLayoutInflater().inflate(R.layout.activity_rank, null);
                 new AlertDialog.Builder(this)

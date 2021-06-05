@@ -66,9 +66,9 @@ public class TcsView extends View {
     // 困难
     private int hard_speed = 100;
     //
-    private int normal_speed = 500;
+    private int normal_speed = 80;
     //
-    private int easy_speed = 500;
+    private int easy_speed = 50;
 
     private int speed = normal_speed;
 

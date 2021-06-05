@@ -10,5 +10,9 @@
     <string name="ok">确认</string>
     <string name="tv_username">用户名</string>
     <string name="tv_score">分数</string>
+    <string name="easy">简易模式</string>
+    <string name="normal">一般模式</string>
+    <string name="difficult">困难模式</string>
+    <string name="select">请选择您想要的模式:</string>
     </resources>
 
