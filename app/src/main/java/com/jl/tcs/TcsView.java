@@ -6,18 +6,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentController;
-import androidx.fragment.app.FragmentManager;
-
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
+import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -62,18 +58,38 @@ public class TcsView extends View {
     private float tdy;
     private boolean isStop = false;
     private TcsScoreListener tcsScoreListener;
-
+    Timer timer;
+    TimerTask task;
+    private boolean status=true;
     // 困难
     private int hard_speed = 100;
     //
-    private int normal_speed = 80;
+    private int normal_speed = 180;
     //
     private int easy_speed = 50;
 
     private int speed = normal_speed;
 
+    public TcsView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        init();
+        setStart(100);
+    }
+
     public void setSpeed(int speed) {
+if (status){
+    timer.cancel();
+        timer=new Timer();
         this.speed = speed;
+        Log.e("hjl",this.speed+"");
+        timer=  new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(1);
+            }
+        }, 0, this.speed);
+    }
     }
 
     private Handler handler = new Handler(new Handler.Callback() {
@@ -137,9 +153,9 @@ public class TcsView extends View {
         }
     }
 
-    public TcsView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init();
+    public void clean() {
+
+
     }
 
     private void init() {
@@ -148,13 +164,30 @@ public class TcsView extends View {
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(1);
         paint.setAntiAlias(true);
+
+
+   /*     //100为时间的发生间隔，即小蛇多久移动一次，此处修改可调节小蛇的速度
+      timer=  new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.sendEmptyMessage(1);
+            }
+        }, 0, 1000);*/
+
+
+    }
+
+    public void setStart(int speed) {
         //100为时间的发生间隔，即小蛇多久移动一次，此处修改可调节小蛇的速度
-        new Timer().schedule(new TimerTask() {
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 handler.sendEmptyMessage(1);
             }
         }, 0, speed);
+
     }
 
     public void setTcsScoreListener(TcsScoreListener tcsScoreListener) {

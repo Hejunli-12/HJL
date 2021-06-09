@@ -26,7 +26,7 @@
         android:layout_width="420dp"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        android:text="@string/up"
+        android:text="@string/normal"
         android:textColor="#fff"
         android:background="@drawable/bg_diretion"/>
     <Button
@@ -34,7 +34,7 @@
         android:layout_width="420dp"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
-        android:text="@string/up"
+        android:text="@string/difficult"
         android:textColor="#fff"
         android:background="@drawable/bg_diretion"/>
 </LinearLayout>

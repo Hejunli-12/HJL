@@ -3,22 +3,17 @@ package com.jl.tcs;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Chronometer;
-import android.widget.ExpandableListAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jl.tcs.adapter.RankAdapter;
 import com.jl.tcs.model.RankBean;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,29 +153,37 @@ public class MainActivity
                 tcsView.changeDirection(2);
                 break;
             case R.id.btn_setting:
-               View settingView = getLayoutInflater().inflate(R.layout.activity_setting, null);
-
-                new AlertDialog.Builder(this)
-                        .setView(settingView)
+                View settingView = getLayoutInflater().inflate(R.layout.activity_setting, null);
+                String a = getResources().getString(R.string.easy);
+                String b = getResources().getString(R.string.normal);
+                String c = getResources().getString(R.string.difficult);
+                final String[] list = new String[]{a, b, c};
+                AlertDialog.Builder Item = new AlertDialog.Builder(this)
+                        //.setView(settingView)
                         .setTitle(R.string.select)
-                        .setItems(speed,new View.OnClickListener() {
+                        .setItems(list, new DialogInterface.OnClickListener() {
+
                             @Override
-                            public void onClick(View v) {
-                                {
-                                    switch (v.getId()) {
-                                        case R.id.btn_easy:
-                                            tcsView.setSpeed(50);
-                                            break;
-                                        case R.id.btn_normal:
-                                            tcsView.setSpeed(80);
-                                            break;
-                                        case R.id.btn_difficult:
-                                            tcsView.setSpeed(100);
-                                            break;
-                                    }
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0:
+                                        //tcsView.setStart(2100);
+                                        tcsView.setSpeed(200);
+                                        Toast.makeText(MainActivity.this, "0", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 1:
+                                        tcsView.setSpeed(100);
+                                        Toast.makeText(MainActivity.this, "1", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case 2:
+                                        tcsView.setSpeed(50);
+                                        Toast.makeText(MainActivity.this, "2", Toast.LENGTH_SHORT).show();
+                                        break;
                                 }
                             }
                         });
+                Item.create();
+                Item.show();
 
                 break;
 
